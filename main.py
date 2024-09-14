@@ -41,3 +41,4 @@ print(Anton)
 print(Kirill)
 
 print(len(Anton))
+print(Anton.__len__())
