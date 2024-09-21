@@ -10,7 +10,7 @@ class Human:
         self.money = 100
 
     def eat(self):
-        eat = random.randint(1, 10)
+        eat = random.randint(1, 5)
         print(f"Я з'їв {eat}% їжи")
         self.house.food -= eat
 
@@ -21,8 +21,11 @@ class Human:
 
     def shopping(self):
         self.money -= random.randint(1,10)
-        if not self.car.drive(random.randint(1,10)*10):
-            print("Пішли в магазин пішки")
+        if self.car != None:
+            if self.car.drive(random.randint(1,10)*10):
+                print("Поїхали в магазин")
+        else:
+            print("Сходили в магазин")
         self.house.food += random.randint(1,10)
 
     def cleaning(self):
@@ -38,14 +41,44 @@ class Human:
             self.house.pollution = 0
 
     def work(self):
-        self.money += 10
+        self.money += 20
         if self.car != None:
-            if not self.car.drive(20):
+            if self.car.drive(20):
                 print("Я поїхав на роботу")
             else:
                 print("Я сходив на роботу")
         else:
             print("Я сходив на роботу")
+
+    def info(self):
+        print(f"Гроші - ${self.money}")
+        if self.car != None:
+            print(f"Стан автівки: пальне {self.car.fuel} л, стан {self.car.state}%")
+        print(self.job)
+        print(self.house)
+
+    def is_alive(self):
+        if self.money >= 0:
+            return True
+        else:
+            return False
+
+    def life(self, day):
+        print()
+        print(f"День {day} з життя {self.name}")
+        print("====================================")
+        self.work()
+        self.chill()
+        self.eat()
+        self.shopping()
+
+        if day % 7 == 0:
+            self.cleaning()
+
+        self.info()
+        self.is_alive()
+
+
 
 class Car:
     def __init__(self, model):
@@ -101,12 +134,18 @@ class House:
         self.pollution = 0
 
     def __str__(self):
-        return f"Холодильник забитий {self.food}%, забудненість {self.pollution}%"
+        return f"Стан будинку: Холодильник забитий {self.food}%, забудненість {self.pollution}%"
 
 
 
-human1 = Human("Serg", job=Job("Викладач", 1000), car=Car("BMW X11"))
-human1.work()
+human1 = Human("Serg", job=Job("Викладач", 1000))
+
+for day in range(366):
+    if human1.is_alive() == False:
+        break
+    human1.life(day)
+
+
 
 # human2 = Human("Anna")
 #

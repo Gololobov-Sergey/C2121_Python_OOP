@@ -50,8 +50,9 @@ class Student:
         elif choice == 3:
             self.to_chill()
         choice2 = random.randint(1, 20)
+        self.func()  # ДЗ
         if choice2 == 20:
-            self.func()  # ДЗ
+            pass
         self.info()
         self.is_alive()
 
