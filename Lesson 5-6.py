@@ -41,7 +41,7 @@ class Human:
             self.house.pollution = 0
 
     def work(self):
-        self.money += 20
+        self.money += 30
         if self.car != None:
             if self.car.drive(20):
                 print("Я поїхав на роботу")

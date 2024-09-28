@@ -25,6 +25,10 @@ class Student:
             return
         self.age += delta
 
+    def setAge(self, age):
+        if age < 0 or age > 100:
+            return
+        self.age = age
 
 
 print(Student.count_of_student)
